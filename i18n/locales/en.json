@@ -1,0 +1,8 @@
+{
+  "hello": "Bonjour",
+  "$vuetify": {
+    "dataTable": {
+      "itemsPerPageText": "Éléments par page :"
+    }
+  }
+}
