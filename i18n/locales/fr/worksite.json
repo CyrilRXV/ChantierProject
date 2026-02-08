@@ -1,0 +1,18 @@
+{
+  "worksite": {
+    "add": "Ajouter un chantier",
+    "list": {
+      "titleList": "Liste des chantiers",
+      "search": "Recherche de chantier",
+      "statusSearch": "Etat du chantier",
+      "searchPlaceholder": "Par nom, client, lieu ...",
+      "name": "Nom du chantier",
+      "client": "Client",
+      "place": "Lieu",
+      "startDate": "Date de début",
+      "endDate":"Date de fin",
+      "status": "Status",
+      "noData": "Aucune chantier trouvée"
+    }
+  }
+}

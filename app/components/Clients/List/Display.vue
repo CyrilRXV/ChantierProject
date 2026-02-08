@@ -36,7 +36,7 @@ const filteredClients = computed(() => {
       title="Vue cartes"
     />
   </v-btn-toggle>
-  <div class="d-flex flex-row justify-between mb-4 gap-6">
+  <div class="d-flex flex-row mb-4 ga-6">
     <v-text-field
       v-model="search"
       prepend-inner-con="mdi-magnify"
@@ -50,7 +50,6 @@ const filteredClients = computed(() => {
       :to="{ name: 'clients-createdOrUpdateClient' }"
     >
       <VBtn
-        class="w-auto"
         color="primary"
       >
         {{ $t('client.add') }}
@@ -66,4 +65,3 @@ const filteredClients = computed(() => {
     :filtered-clients="filteredClients"
   />
 </template>
-

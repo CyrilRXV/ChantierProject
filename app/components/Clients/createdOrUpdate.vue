@@ -115,7 +115,6 @@ const updateClient = async (clientId: number, values: FormDto | null): Promise<v
         }
       }
     );
-    navigateTo(`/clients/${data.id}`);
   } catch (error) {
     if (error) {
       console.log('erreur mise a jour');
@@ -129,12 +128,12 @@ const updateClient = async (clientId: number, values: FormDto | null): Promise<v
     class="d-flex justify-center"
     @submit.prevent="submitForm"
   >
-    <v-card class="flex-column align-center pa-8 w-50 border-xl">
-      <div class="d-flex flex-row gap-8">
+    <v-card class="pa-8 w-50 border-xl">
+      <div class="d-flex flex-row ga-8">
         <v-text-field
           v-model="societyName"
           :error-messages="errors.societyName"
-          class="w-75 mt-6"
+          class="w-75"
           placeholder="Société A"
           clearable
           label="Nom du client / société *"
@@ -144,7 +143,7 @@ const updateClient = async (clientId: number, values: FormDto | null): Promise<v
           v-model="logo"
           :error-messages="errors.logo"
           label="Logo"
-          class="w-25 mt-6"
+          class="w-25"
           prepend-icon="mdi-camera"
           variant="filled"
           v-bind="logoAttrs"
@@ -153,18 +152,18 @@ const updateClient = async (clientId: number, values: FormDto | null): Promise<v
       <v-text-field
         v-model="email"
         :error-messages="errors.email"
-        class="w-auto mt-6"
+        class="w-50"
         clearable
         type="email"
         placeholder="email@email.fr"
         label="E-mail *"
         v-bind="emailAttrs"
       />
-      <div class="d-flex flex-row gap-8">
+      <div class="d-flex flex-row ga-8">
         <v-text-field
           v-model="contact"
           :error-messages="errors.contact"
-          class="w-50 mt-6"
+          class="w-50"
           clearable
           label="Nom du contact"
           v-bind="contactAttrs"
@@ -172,17 +171,17 @@ const updateClient = async (clientId: number, values: FormDto | null): Promise<v
         <v-text-field
           v-model="phone"
           :error-messages="errors.phone"
-          class="w-25 mt-6"
+          class="w-25"
           label="N° téléphone"
           placeholder="0601020304"
           v-bind="phoneAttrs"
         />
       </div>
-      <div class="d-flex flex-row gap-8">
+      <div class="d-flex flex-row ga-8">
         <v-text-field
           v-model="address"
           :error-messages="errors.address"
-          class="w-75 mt-4"
+          class="w-75"
           prepend-icon="mdi-map-marker"
           clearable
           label="Adresse"
@@ -192,7 +191,7 @@ const updateClient = async (clientId: number, values: FormDto | null): Promise<v
           v-model="postalCode"
           type="number"
           :error-messages="errors.postalCode"
-          class="w-25 mt-4"
+          class="w-25"
           label="Code Postal"
           v-bind="postalCodeAttrs"
         />
@@ -218,62 +217,54 @@ const updateClient = async (clientId: number, values: FormDto | null): Promise<v
     title="Alert erreur"
     type="error"
   />
-  <v-dialog
-    v-model="showConfirmDialog"
-    v-click-outside
-    max-width="500"
-    persistent
-  >
-    <v-card class="rounded-lg">
-      <v-card-title class="d-flex align-center gap-3 pa-6">
-        <v-icon
-          color="success"
-          size="32"
-        >
-          mdi-check-circle
-        </v-icon>
-        <span class="text-h5 font-weight-bold">Confirmation création</span>
-      </v-card-title>
-      <v-card-text class="pa-6">
-        <div
-          v-if="formValues"
-          class="space-y-2"
-        >
-          <div class="d-flex">
-            <strong class="mr-2">Nom du client :</strong>
-            <span>{{ formValues.societyName }}</span>
-          </div>
-          <div class="d-flex">
-            <strong class="mr-2">Email :</strong>
-            <span>{{ formValues.email }}</span>
-          </div>
-          <div class="d-flex">
-            <strong class="mr-2">Contact :</strong>
-            <span>{{ formValues.contact || 'Non spécifié' }}</span>
-          </div>
-          <div class="d-flex">
-            <strong class="mr-2">Téléphone :</strong>
-            <span>{{ formValues.phone || 'Non spécifié' }}</span>
-          </div>
-          <div class="d-flex">
-            <strong class="mr-2">Adresse :</strong>
-            <span>{{ formValues.address || 'Non spécifié' }}</span>
-          </div>
-          <div class="d-flex">
-            <strong class="mr-2">Code Postal :</strong>
-            <span>{{ formValues.postalCode || 'Non spécifié' }}</span>
-          </div>
-        </div>
-      </v-card-text>
-      <v-card-actions class="pa-6 pt-0">
-        <v-spacer />
-        <v-btn
-          class="bg-success w-100"
-          @click="showConfirmDialog = false, navigateTo(`/clients`);"
-        >
-          OK
-        </v-btn>
-      </v-card-actions>
-    </v-card>
-  </v-dialog>
+  <BaseDialog :show-confirm-dialog="showConfirmDialog">
+    <template #title>
+      Résumé des infos du client
+    </template>
+    <template #nameTitleField>
+      Nom du client :
+    </template>
+    <template #nameField>
+      {{ formValues?.societyName }}
+    </template>
+    <template #emailTitleField>
+      Email :
+    </template>
+    <template #emailField>
+      {{ formValues?.email }}
+    </template>
+    <template #adressTitleField>
+      Adresse du client
+    </template>
+    <template #adressField>
+      {{ formValues?.address }}
+    </template>
+    <template #contactTitleField>
+      Contact :
+    </template>
+    <template #contactField>
+      {{ formValues?.contact }}
+    </template>
+    <template #phoneTitleField>
+      Téléphone :
+    </template>
+    <template #phoneField>
+      {{ formValues?.phone }}
+    </template>
+    <template #postalCodeTitleField>
+      Code Postal :
+    </template>
+    <template #postalCodeField>
+      {{ formValues?.postalCode }}
+    </template>
+    <template #actions>
+      <v-spacer />
+      <v-btn
+        class="bg-success"
+        @click="showConfirmDialog = false; navigateTo('/clients')"
+      >
+        ok
+      </v-btn>
+    </template>
+  </BaseDialog>
 </template>

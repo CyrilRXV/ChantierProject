@@ -71,9 +71,6 @@ const clientItems = computed((): object =>
 
 const createWorksite = async (values: FormDto | null) => {
   try {
-    formValues.value = values;
-    await nextTick();
-    showConfirmDialog.value = true;
     await $fetch<ApiResponse<WorksiteInterface>>(
       'api/worksite',
       {
@@ -84,6 +81,9 @@ const createWorksite = async (values: FormDto | null) => {
         }
       }
     );
+    formValues.value = values;
+    await nextTick();
+    showConfirmDialog.value = true;
   } catch (error) {
     if (error) {
       console.log('erreur creation');
@@ -112,6 +112,7 @@ const updateWorksite = async (worksiteId: number, values: FormDto | null): Promi
         }
       }
     );
+
     navigateTo(`/worksites/${data.id}`);
   } catch (error) {
     if (error) {
@@ -126,8 +127,8 @@ const updateWorksite = async (worksiteId: number, values: FormDto | null): Promi
     class="d-flex justify-center"
     @submit.prevent="submitForm"
   >
-    <v-card class="flex-column align-center pa-8 w-50 border-xl">
-      <div class="d-flex gap-4 ">
+    <v-card class="pa-8 w-50 border-xl">
+      <div class="d-flex flex-row ga-4">
         <v-select
           v-model="client"
           :error-messages="errors.client"
@@ -162,34 +163,39 @@ const updateWorksite = async (worksiteId: number, values: FormDto | null): Promi
         label="lieu"
         v-bind="placeAttrs"
       />
-      <div class="flex flex-row gap-8 mt-4">
+      <div class="d-flex flex-row w-66 ga-6">
         <v-date-input
           v-model="startDate"
+          x
           :error-messages="errors.startDate"
-          class="w-auto"
           clearable
           label="Date de début"
           v-bind="startDateAttrs"
           variant="outlined"
+          class="w-50"
         />
         <v-date-input
           v-model="endDate"
           :error-messages="errors.endDate"
-          class="w-auto"
           clearable
           label="Date de fin"
           v-bind="endDateAttrs"
           variant="outlined"
+          class="w-50"
         />
       </div>
 
       <v-btn
         :disable="isSubmitting"
-        class="mt-2 w-25"
         color="primary"
         type="submit"
       >
-        Ajouter
+        <template v-if="!worksite">
+          Ajouter
+        </template>
+        <template v-else>
+          Modifier
+        </template>
       </v-btn>
     </v-card>
   </v-form>
@@ -199,64 +205,48 @@ const updateWorksite = async (worksiteId: number, values: FormDto | null): Promi
     title="Alert erreur"
     type="error"
   />
-  <v-dialog
-    v-model="showConfirmDialog"
-    v-click-outside
-    max-width="500"
-    persistent
-  >
-    <v-card class="rounded-lg">
-      <v-card-title class="d-flex align-center gap-3 pa-6">
-        <v-icon
-          color="success"
-          size="32"
-        >
-          mdi-check-circle
-        </v-icon>
-        <span class="text-h5 font-weight-bold">Confirmation création</span>
-      </v-card-title>
-      <v-card-text class="pa-6">
-        <div
-          v-if="formValues"
-          class="space-y-2"
-        >
-          <div class="d-flex">
-            <strong class="mr-2">Nom chantier :</strong>
-            <span>{{ formValues.worksiteName }}</span>
-          </div>
-          <div class="d-flex">
-            <strong class="mr-2">Client :</strong>
-            <span>{{ formValues.client || 'Non spécifié' }}</span>
-          </div>
-          <div class="d-flex">
-            <strong class="mr-2">Lieu :</strong>
-            <span>{{ formValues.place || 'Non spécifié' }}</span>
-          </div>
-          <div
-            v-if="formValues.startDate"
-            class="d-flex"
-          >
-            <strong class="mr-2 ">Début :</strong>
-            <span>{{ new Date(formValues.startDate).toLocaleDateString('fr-FR') }}</span>
-          </div>
-          <div
-            v-if="formValues.endDate"
-            class="d-flex"
-          >
-            <strong class="mr-2">Fin :</strong>
-            <span>{{ new Date(formValues.endDate).toLocaleDateString('fr-FR') }}</span>
-          </div>
-        </div>
-      </v-card-text>
-      <v-card-actions class="pa-6 pt-0">
-        <v-spacer />
-        <v-btn
-          class="bg-success w-100"
-          @click="showConfirmDialog = false, navigateTo(`/worksites`);"
-        >
-          OK
-        </v-btn>
-      </v-card-actions>
-    </v-card>
-  </v-dialog>
+  <BaseDialog :show-confirm-dialog="showConfirmDialog">
+    <template #title>
+      Résumé des infos du Chantier
+    </template>
+    <template #nameTitleField>
+      Nom chantier :
+    </template>
+    <template #nameField>
+      {{ formValues?.worksiteName }}
+    </template>
+    <template #clientTitleField>
+      Client :
+    </template>
+    <template #clientField>
+      {{ formValues?.client }}
+    </template>
+    <template #adressTitleField>
+      Lieu :
+    </template>
+    <template #adressField>
+      {{ formValues?.place }}
+    </template>
+    <template #dateStartTitleField>
+      Début :
+    </template>
+    <template v-if="formValues?.startDate" #dateStartField>
+      {{ new Date(formValues?.startDate).toLocaleDateString('fr-FR') }}
+    </template>
+    <template #dateEndTitleField>
+      Fin :
+    </template>
+    <template v-if="formValues?.endDate" #dateEndField>
+      {{ new Date(formValues?.endDate).toLocaleDateString('fr-FR') }}
+    </template>
+    <template #actions>
+      <v-spacer />
+      <v-btn
+        class="bg-success"
+        @click="showConfirmDialog = false; navigateTo('/worksites')"
+      >
+        ok
+      </v-btn>
+    </template>
+  </BaseDialog>
 </template>

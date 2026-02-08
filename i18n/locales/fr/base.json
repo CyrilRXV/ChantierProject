@@ -1,0 +1,26 @@
+{
+  "base": {
+    "welcome": "Bonjour Bienvenue",
+    "modal": {
+      "titleDelete": "Confirmer suppression",
+      "confirmationMessageClient": "Voulez-vous vraiment supprimer le client ?",
+      "irreversibleMessage": "Cette action est irréversible."
+    },
+    "btn": {
+      "update": "Modifier",
+      "delete": "Supprimer",
+      "cancel": "Annuler"
+    },
+    "login": {
+      "title": "Connectez-vous",
+      "connexion": "Connection",
+      "mail": "Email",
+      "password": "Mot de passe"
+    },
+    "register": {
+      "title": "Créer un compte",
+      "register": "S'inscrire",
+      "ConfirmationPassword": "Confirmer mot de passe"
+    }
+  }
+}

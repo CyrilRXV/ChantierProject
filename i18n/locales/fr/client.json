@@ -1,0 +1,17 @@
+{
+  "client": {
+    "add": "Ajouter un client",
+    "list": {
+      "titleList": "Liste des clients",
+      "name": "Nom de la société",
+      "email": "Email",
+      "contact": "Contact",
+      "address": "Adresse de la société",
+      "postalCode": "Code postal",
+      "phone": "Téléphone",
+      "search": "Recherche de client",
+      "searchPlaceholder": "Par nom, email, contact ...",
+      "noData": "Aucune client trouvée"
+    }
+  }
+}

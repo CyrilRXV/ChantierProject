@@ -5,7 +5,6 @@ export default defineNuxtConfig({
     '@vee-validate/nuxt',
     'vuetify-nuxt-module',
     '@nuxtjs/i18n',
-    '@nuxtjs/tailwindcss',
     'nuxt-auth-sanctum'
   ],
   ssr: false,
@@ -30,8 +29,28 @@ export default defineNuxtConfig({
     langDir: 'locales',
     strategy: 'no_prefix',
     locales: [
-      { code: 'fr', iso: 'fr-FR', name: 'Français', file: 'fr.json' },
-      { code: 'en', iso: 'en-US', name: 'English', file: 'en.json' },
+      { code: 'fr',
+        iso: 'fr-FR',
+        name: 'Français',
+        files: [
+          'fr/error.json',
+          'fr/base.json',
+          'fr/client.json',
+          'fr/worksite.json',
+          'fr/home.json'
+        ]
+      },
+      { code: 'en',
+        iso: 'en-US',
+        name: 'English',
+        files: [
+          'en/error.json',
+          'en/base.json',
+          'en/client.json',
+          'en/worksite.json',
+          'en/home.json'
+        ]
+      }
     ],
     defaultLocale: 'fr'
   },
@@ -45,9 +64,18 @@ export default defineNuxtConfig({
     }
   },
   vuetify: {
-    moduleOptions: {
-    },
     vuetifyOptions: {
+      theme: {
+        themes: {
+          light: {
+            colors: {
+              primary: '#022957',
+              secondary: '#FF5703',
+              tertiary: '#57A33B'
+            }
+          }
+        }
+      }
     }
   }
 });

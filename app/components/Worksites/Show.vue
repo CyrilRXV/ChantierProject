@@ -1,23 +1,8 @@
 <script lang="ts" setup>
-type itemsMenuType
-  = 'Récapitulatif'
-    | 'Devis'
-    | 'Factures'
-    | 'Factures fournisseurs'
-    | 'Factures sous-traitant'
-    | 'Répartition Main d\'oeuvre'
-    | 'Autres';
+import { ItemsMenu } from '~/components/Worksites/Types/worksiteItemsTabEnum';
 
 const tab = ref('null');
-const itemsMenu: itemsMenuType[] = [
-  'Récapitulatif',
-  'Devis',
-  'Factures',
-  'Factures fournisseurs',
-  'Factures sous-traitant',
-  'Répartition Main d\'oeuvre',
-  'Autres'
-];
+const itemsMenu = Object.values(ItemsMenu);
 </script>
 
 <template>

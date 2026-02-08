@@ -37,9 +37,7 @@ async function deleteWorksite() {
 
 <template>
   <tr
-    class="
-    cursor-pointer
-    hover:bg-blue-200"
+    class="hoverableTr"
     @click="showClient(client.id)"
   >
     <td>
@@ -66,7 +64,7 @@ async function deleteWorksite() {
         <v-tooltip location="top">
           <template #activator="{ props }">
             <v-icon
-              class="hover:scale-150"
+              class="hoverIcon"
               color="success"
               icon="mdi-pen"
               size="x-large"
@@ -83,7 +81,7 @@ async function deleteWorksite() {
         <v-tooltip location="top">
           <template #activator="{ props }">
             <v-icon
-              class="hover:scale-150"
+              class="hoverIcon"
               color="error"
               icon="mdi mdi-trash-can-outline"
               size="x-large"

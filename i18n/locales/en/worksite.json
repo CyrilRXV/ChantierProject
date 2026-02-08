@@ -1,0 +1,18 @@
+{
+  "worksite": {
+    "add": "Add a worksite",
+    "list": {
+      "titleList": "Worksites list",
+      "search": "Search worksite",
+      "statusSearch": "Worksite status",
+      "searchPlaceholder": "By name, client, location ...",
+      "name": "Worksite name",
+      "client": "Client",
+      "place": "Location",
+      "startDate": "Start date",
+      "endDate": "End date",
+      "status": "Status",
+      "noData": "No worksite found"
+    }
+  }
+}

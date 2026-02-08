@@ -6,27 +6,27 @@ import InvoiceSupplierCard from '~/components/Worksites/Card/InvoiceSupplierCard
 import InvoiceSubcontractorCard from '~/components/Worksites/Card/InvoiceSubcontractorCard.vue';
 import WorkforceAllocationCard from '~/components/Worksites/Card/WorkforceAllocationCard.vue';
 import OthersCard from '~/components/Worksites/Card/OthersCard.vue';
+import { ItemsMenu } from '~/components/Worksites/Types/worksiteItemsTabEnum';
 
 const props = defineProps<{
-  type: 'Récapitulatif' | 'Devis' | 'Factures' | 'Factures fournisseurs' | 'Factures sous-traitant'
-    | 'Répartition Main d\'oeuvre' | 'Autres';
+  type: ItemsMenu;
 }>();
 
 const cardComponent = computed(() => {
   switch (props.type) {
-    case 'Récapitulatif':
+    case ItemsMenu.Recapitulatif:
       return RecapCard;
-    case 'Devis':
+    case ItemsMenu.Devis:
       return QuoteCard;
-    case 'Factures':
+    case ItemsMenu.Factures:
       return InvoiceCard;
-    case 'Factures fournisseurs':
+    case ItemsMenu.FacturesFournisseurs:
       return InvoiceSupplierCard;
-    case 'Factures sous-traitant':
+    case ItemsMenu.FacturesSousTraitant:
       return InvoiceSubcontractorCard;
-    case 'Répartition Main d\'oeuvre':
+    case ItemsMenu.RepartitionMainOeuvre:
       return WorkforceAllocationCard;
-    case 'Autres':
+    case ItemsMenu.Autres:
       return OthersCard;
     default:
       return RecapCard;

@@ -1,5 +1,5 @@
 export const items = [
-  { text: 'Acceuil', icon: 'mdi-home', route: '/' },
+  { text: 'Acceuil', icon: 'mdi-home', route: '/dashboard' },
   { text: 'Chantiers', icon: 'mdi-format-align-center', route: '/worksites' },
   { text: 'Planning', icon: 'mdi-tshirt-crew', route: '/schedule' },
   { text: 'Bilan', icon: 'mdi-trophy-outline', route: '/sheet' },

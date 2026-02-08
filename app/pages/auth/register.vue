@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useField, useForm } from 'vee-validate';
+import { useForm } from 'vee-validate';
 import { z } from 'zod';
 import { toTypedSchema } from '@vee-validate/zod';
 
@@ -23,19 +23,23 @@ const { errors, handleSubmit, defineField } = useForm<FormDto>({
     z.object({
       name: z
         .string()
-        .min(1, { message: 'le champ est obligatoire' })
-        .min(3, { message: 'Votre Pseudo doit être supérieur a 3 caratères' })
-        .max(25, { message: 'Votre Pseudo ne peut pas dépasser 25 caractères' }),
+        .min(1, { message: $t('error.register.name') })
+        .min(3, { message: $t('error.register.minName') })
+        .max(25, { message: $t('error.register.maxName') }),
       email: z
         .string()
-        .min(1, { message: 'L\'email est requis' })
-        .email({ message: 'L\'email doit être valide' }),
+        .min(1, { message: $t('error.login.mail') })
+        .email({ message: $t('error.login.minMail') }),
       password: z
         .string()
-        .min(1, { message: 'Le mot de passe est requis' })
-        .min(3, 'Le mot de passe est trop court'),
+        .min(1, { message: $t('error.login.password') })
+        .min(3, $t('error.login.minPassword')),
       password_confirmation: z
         .string()
+        .min(1, { message: $t('error.register.password') })
+    }).refine(data => data.password === data.password_confirmation, {
+      message: $t('error.register.confPassword'),
+      path: ['password_confirmation']
     })
   ),
   initialValues: { name: '', email: '', password: '', password_confirmation: '' }
@@ -60,65 +64,65 @@ const [password_confirmation, password_confirmationAttrs] = defineField(
 </script>
 
 <template>
-  <VCard
-    prepend-icon="mdi-account"
-    title="Créer un compte"
-    class="text-center mt-16 max-w-xl m-auto border"
-    rounded="xl"
-  >
-    <VForm @submit.prevent="onSubmit">
-      <VCardText>
-        <VTextField
-          v-model="name"
-          v-bind="nameAttrs"
-          class="w-2/3 m-auto mt-4"
-          label="Pseudo"
-          clearable
-          :error-messages="errors.name"
-        />
-        <VTextField
-          v-model="email"
-          v-bind="emailAttrs"
-          class="w-2/3 m-auto"
-          label="Email"
-          clearable
-          :error-messages="errors.email"
-        />
-        <VTextField
-          v-model="password"
-          v-bind="passwordAttrs"
-          class="w-2/3 m-auto"
-          label="Password*"
-          type="password"
-          clearable
-          :error-messages="errors.password"
-        />
-        <VTextField
-          v-model="password_confirmation"
-          v-bind="password_confirmationAttrs"
-          class="w-2/3 m-auto"
-          label="Confirm Password"
-          type="password"
-          clearable
-          :error-messages="errors.password_confirmation"
-        />
-      </VCardText>
-
-      <VCardActions class="w-2/3 m-auto mb-4">
-        <NuxtLink :to="{ name: 'index' }">
-          <VBtn
-            text="Annuler"
-            variant="outlined"
+  <v-container class="d-flex justify-center">
+    <VCard
+      prepend-icon="mdi-account"
+      :title="$t('base.register.title')"
+      class="text-center mt-16 w-33 border"
+      rounded="xl"
+    >
+      <VForm @submit.prevent="onSubmit">
+        <VCardText>
+          <VTextField
+            v-model="name"
+            v-bind="nameAttrs"
+            label="Pseudo"
+            clearable
+            :error-messages="errors.name"
           />
-        </NuxtLink>
-        <VBtn
-          type="submit"
-          color="primary"
-          class="flex-1"
-          text="Créer"
-          variant="tonal"
-        />
-      </VCardActions>
-    </VForm>
-  </VCard>
+          <VTextField
+            v-model="email"
+            v-bind="emailAttrs"
+            class="w-2/3 m-auto"
+            label="Email"
+            clearable
+            :error-messages="errors.email"
+          />
+          <VTextField
+            v-model="password"
+            v-bind="passwordAttrs"
+            label="Password*"
+            type="password"
+            clearable
+            :error-messages="errors.password"
+          />
+          <VTextField
+            v-model="password_confirmation"
+            v-bind="password_confirmationAttrs"
+            label="Confirm Password"
+            type="password"
+            clearable
+            :error-messages="errors.password_confirmation"
+          />
+        </VCardText>
+
+        <VCardActions class="d-flex justify-end pa-8">
+          <NuxtLink :to="{ name: 'index' }">
+            <VBtn
+              text="Annuler"
+              variant="outlined"
+            />
+          </NuxtLink>
+          <VBtn
+            class="w-50 border-md"
+            type="submit"
+            color="primary"
+            text="Créer"
+            variant="tonal"
+
+          />
+        </VCardActions>
+      </VForm>
+    </VCard>
+  </v-container>
 </template>

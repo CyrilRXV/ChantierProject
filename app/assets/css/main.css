@@ -1,17 +1,24 @@
-@import "tailwindcss/base";
-@import "tailwindcss/components";
-@import "tailwindcss/utilities";
 /*@import './styles/dashboard.css';*/
-
+:root {
+  --color-primary: #022957;
+  --color-secondary: #FF5703;
+  --color-green-theme: #57A33B;
+  --color-warning: #FFC107;
+}
 * {
   font-family: Roboto, sans-serif !important;
 }
-
 a {
   text-decoration: none;
   color: inherit;
 }
-
 h1 {
   font-size: 1.875rem;
+}
+.hoverIcon:hover {
+  transform: scale(1.5);
+}
+.hoverableTr:hover {
+  cursor: pointer;
+  background-color: #E4F2FD;
 }

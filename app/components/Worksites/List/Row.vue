@@ -51,13 +51,17 @@ const colorStatusVariant = (status: WorksiteStatusEnum): string => {
       return 'primary';
   }
 };
+
+const formatDate = (date: Date | string | undefined): string => {
+  if (!date) return '-';
+  const d = new Date(date);
+  return d.toLocaleDateString('fr-FR');
+};
 </script>
 
 <template>
   <tr
-    class="
-    cursor-pointer
-    hover:bg-blue-200"
+    class="hoverableTr"
     @click="showWorksite(worksite.id)"
   >
     <td>
@@ -70,10 +74,10 @@ const colorStatusVariant = (status: WorksiteStatusEnum): string => {
       {{ worksite.place ? worksite.place : '-' }}
     </td>
     <td class="size-36 text-center">
-      {{ worksite.startDate ? worksite.startDate.toLocaleDateString('fr-FR') : '-' }}
+      {{ formatDate(worksite.startDate) }}
     </td>
     <td class="size-36 text-center">
-      {{ worksite.endDate ? worksite.endDate.toLocaleDateString('fr-FR') : '-' }}
+      {{ formatDate(worksite.endDate) }}
     </td>
     <td class="size-26">
       <div class="text-center">
@@ -92,7 +96,7 @@ const colorStatusVariant = (status: WorksiteStatusEnum): string => {
         <v-tooltip location="top">
           <template #activator="{ props }">
             <v-icon
-              class="hover:scale-150"
+              class="hoverIcon"
               color="success"
               icon="mdi-pen"
               size="x-large"
@@ -109,7 +113,7 @@ const colorStatusVariant = (status: WorksiteStatusEnum): string => {
         <v-tooltip location="top">
           <template #activator="{ props }">
             <v-icon
-              class="hover:scale-150"
+              class="hoverIcon"
               color="error"
               icon="mdi mdi-trash-can-outline"
               size="x-large"
